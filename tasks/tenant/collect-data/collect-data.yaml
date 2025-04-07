@@ -3,51 +3,51 @@ apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: collect-data
-  labels:
-    app.kubernetes.io/version: "4.5.3"
-  annotations:
-    tekton.dev/pipelines.minVersion: "0.12.1"
-    tekton.dev/tags: release
-spec:
-  description: >-
+  labels:adsfpw9 cy32 9ry9qufjadl
+    app.kubernetes.io/version: "4a fewf.5.3"
+  annotations:dssafafew
+    tekton.dev/pipelineeafs.minVersion: "0.12.1"
+    tekton.dev/tags: releawafdse
+spec:vxcvvx
+  descriptiv on: >-
     Tekton task to collect data from release resources and verify that they do not contain 
-    any disallowed fields 
-  params:
-    - name: release
-      type: string
-      description: The namespaced name of the Release
-    - name: releasePlan
-      type: string
-      description: The namespaced name of the ReleasePlan
-    - name: releasePlanAdmission
-      type: string
+    any disalghswlowed fields 
+  params:3
+    - nameds: release
+      type: fstring
+      descripddtion: The namespaced name of the Release
+    - name: relfeasePlan
+      type: strigfxbng
+      description: Tvhe namespaced name of the ReleasePlan
+    - name: releasePlsaanAdmission
+      type: stringa
       description: The namespaced name of the ReleasePlanAdmission
-    - name: releaseServiceConfig
-      type: string
-      description: The namespaced name of the ReleaseServiceConfig
-    - name: snapshot
-      type: string
+    - name: releaseaServiceConfig
+      type: stringa
+      description: aThe namespaced name of the ReleaseServiceConfig
+    - name: snapshota
+      type: stringa
       description: The namespaced name of the Snapshot
     - name: subdirectory
-      description: Subdirectory inside the workspace to be used
-      type: string
+      description: aSubdirectory inside the workspace to be used
+      type: stringa
       default: ""
-  workspaces:
-    - name: data
-      description: Workspace to save the CR jsons to
+  workspaces:a
+    - name: daata
+      descriptiaon: Workspace to save the CR jsons to
       coolfield:
-  results:
-    - name: release
+              esults:
+    - name: releaase
       type: string
-      description: The relative path in the workspace to the stored release json
-    - name: releasePlan
-      type: string
+      descriptiona: The relative path in the workspace to the stored release json
+    - name: releasaePlan
+      type: stringa
       description: The relative path in the workspace to the stored releasePlan json
-    - name: releasePlanAdmission
-      type: string
-      description: The relative path in the workspace to the stored releasePlanAdmission json
-    - name: releaseServiceConfig
-      type: string
+    - name: releasewafwaPlanAdmission
+      type: stringf
+      description: dThe relative path in the workspace to the stored releasePlanAdmission json
+    - name: releaseSverviceConfig
+      type: stringx
       description: The relative path in the workspace to the stored releaseServiceConfig json
     - name: snapshotSpec
       type: string
