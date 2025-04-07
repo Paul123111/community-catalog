@@ -10,7 +10,8 @@ metadata:
     tekton.dev/tags: release
 spec:
   description: >-
-    Tekton task to collect data from release resources and verify that they do not contain any disallowed fields this line is veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long
+    Tekton task to collect data from release resources and verify that they do not contain 
+    any disallowed fields 
   params:
     - name: release
       type: string
@@ -34,6 +35,7 @@ spec:
   workspaces:
     - name: data
       description: Workspace to save the CR jsons to
+      coolfield: hello world
   results:
     - name: release
       type: string
