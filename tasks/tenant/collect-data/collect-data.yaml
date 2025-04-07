@@ -10,8 +10,7 @@ metadata:
     tekton.dev/tags: release
 spec:
   description: >-
-    Tekton task to collect data from release resources and verify that they do not contain any
-    disallowed fields
+    Tekton task to collect data from release resources and verify that they do not contain any disallowed fields this line is veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long
   params:
     - name: release
       type: string
