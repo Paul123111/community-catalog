@@ -35,7 +35,7 @@ spec:
   workspaces:
     - name: data
       description: Workspace to save the CR jsons to
-      coolfield: hello world
+      coolfield:
   results:
     - name: release
       type: string
