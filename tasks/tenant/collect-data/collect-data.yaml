@@ -3,51 +3,50 @@ apiVersion: tekton.dev/v1
 kind: Task
 metadata:
   name: collect-data
-  labels:adsfpw9 cy32 9ry9qufjadl
-    app.kubernetes.io/version: "4a fewf.5.3"
-  annotations:dssafafew
-    tekton.dev/pipelineeafs.minVersion: "0.12.1"
-    tekton.dev/tags: releawafdse
-spec:vxcvvx
-  descriptiv on: >-
-    Tekton task to collect data from release resources and verify that they do not contain 
-    any disalghswlowed fields 
-  params:3
-    - nameds: release
-      type: fstring
-      descripddtion: The namespaced name of the Release
-    - name: relfeasePlan
-      type: strigfxbng
-      description: Tvhe namespaced name of the ReleasePlan
-    - name: releasePlsaanAdmission
-      type: stringa
+  labels:
+    app.kubernetes.io/version: "4.5.3"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: release
+spec:
+  description: >-
+    Tekton task to collect data from release resources and verify that they do not contain any
+    disallowed fields
+  params:
+    - name: release
+      type: string
+      description: The namespaced name of the Release
+    - name: releasePlan
+      type: string
+      description: The namespaced name of the ReleasePlan
+    - name: releasePlanAdmission
+      type: string
       description: The namespaced name of the ReleasePlanAdmission
-    - name: releaseaServiceConfig
-      type: stringa
-      description: aThe namespaced name of the ReleaseServiceConfig
-    - name: snapshota
-      type: stringa
+    - name: releaseServiceConfig
+      type: string
+      description: The namespaced name of the ReleaseServiceConfig
+    - name: snapshot
+      type: string
       description: The namespaced name of the Snapshot
     - name: subdirectory
-      description: aSubdirectory inside the workspace to be used
-      type: stringa
-      default: ""
-  workspaces:a
-    - name: daata
-      descriptiaon: Workspace to save the CR jsons to
-      coolfield:
-              esults:
-    - name: releaase
+      description: Subdirectory inside the workspace to be used
       type: string
-      descriptiona: The relative path in the workspace to the stored release json
-    - name: releasaePlan
-      type: stringa
+      default: ""
+  workspaces:
+    - name: data
+      description: Workspace to save the CR jsons to
+  results:
+    - name: release
+      type: string
+      description: The relative path in the workspace to the stored release json
+    - name: releasePlan
+      type: string
       description: The relative path in the workspace to the stored releasePlan json
-    - name: releasewafwaPlanAdmission
-      type: stringf
-      description: dThe relative path in the workspace to the stored releasePlanAdmission json
-    - name: releaseSverviceConfig
-      type: stringx
+    - name: releasePlanAdmission
+      type: string
+      description: The relative path in the workspace to the stored releasePlanAdmission json
+    - name: releaseServiceConfig
+      type: string
       description: The relative path in the workspace to the stored releaseServiceConfig json
     - name: snapshotSpec
       type: string
@@ -75,7 +74,7 @@ spec:vxcvvx
       description: json object containing git resolver metadata about the running release pipeline
   steps:
     - name: collect-data
-      image: quay.io/thisimagetotallyexists:e633d51cd41d73e4b3310face21bb980af7a662f
+      image: quay.io/konflux-ci/release-service-utils:e633d51cd41d73e4b3310face21bb980af7a662f
       env:
         - name: "RELEASE"
           value: '$(params.release)'
@@ -247,3 +246,6 @@ spec:vxcvvx
         echo "${json}" > "$(results.releasePipelineMetadata.path)"
         # pretty print for log message
         jq . <<< "$json"
+---
+
+---
