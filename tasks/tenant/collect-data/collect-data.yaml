@@ -95,6 +95,8 @@ spec:
           mkdir -p "$(workspaces.data.path)/$(params.subdirectory)"
           RESULTS_DIR_PATH="$(params.subdirectory)/results"
         fi
+        
+        echo 'this won't work'
 
         ls hello 123 123 123
         notacommand "$(workspaces.data.path)/$RESULTS_DIR_PATH"
