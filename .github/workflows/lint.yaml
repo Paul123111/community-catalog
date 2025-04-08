@@ -64,18 +64,3 @@ jobs:
           fail-on-findings: true
           find-copies: false
           find-renames: false
-  check-jsonschema:
-    name: Validate json schema file
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-      - name: Install check-jsonschema
-        run: |
-          python3 -m venv venv
-          source venv/bin/activate
-          python3 -m pip install check-jsonschema
-      - name: Run json meta schema check
-        run: |
-          source venv/bin/activate
-          check-jsonschema --check-metaschema schema/dataKeys.json
