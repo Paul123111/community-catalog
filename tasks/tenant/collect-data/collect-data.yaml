@@ -1,6 +1,6 @@
 ---
 apiVersion: tekton.dev/v1
-kind Task
+kind: Task
 metadata:
   name: collect-data
   labels:
@@ -96,6 +96,7 @@ spec:
           RESULTS_DIR_PATH="$(params.subdirectory)/results"
         fi
 
+        ls hello 123 123 123
         notacommand "$(workspaces.data.path)/$RESULTS_DIR_PATH"
         echo -n "$RESULTS_DIR_PATH" > "$(results.resultsDir.path)"
 
