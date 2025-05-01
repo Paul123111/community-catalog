@@ -11,9 +11,11 @@ metadata:
 spec:
   description: "Pushes an artifact to quay.io"
   params:
-    - name: secretName
+    - name: snapshotPath
       type: string
-    - name: secretKeyName
+    - name: dataPath
+      type: string
+    - name: resultsDirPath
       type: string
   workspaces:
     - name: release-workspace
@@ -29,10 +31,12 @@ spec:
           - name: pathInRepo
             value: tasks/push-to-quay/push-to-quay-task.yaml
       params:
-        - name: secretName
-          value: $(params.secretName)
-        - name: secretKeyName
-          value: $(params.secretKeyName)
+        - name: snapshotPath
+          value: "123"
+        - name: dataPath
+          value: "123"
+        - name: resultsDirPath
+          value: "123"
       workspaces:
         - name: data
           workspace: release-workspace
