@@ -52,17 +52,14 @@ spec:
 
           # oras has very limited support for selecting the right auth entry,
           # so create a custom auth file with just one entry.
+
           DEST_AUTH_FILE=$(mktemp)
           registry=$(echo "$4" | cut -d '/' -f 1)
-          if [ "$registry" = "docker.io" ]; then
-            # For docker.io, the auth key will always be https://index.docker.io/v1/
-            select-oci-auth "$4" > "$DEST_AUTH_FILE"
-          else
-            # For other registries, the auth key will be modified to the full repository path, so that
-            # we can create a combined auth file with source and destination entries for `cosign copy` later
-            select-oci-auth "$4" | jq -c \
-              '.auths."'"$4"'" = .auths."'"$registry"'" | del(.auths."'"$registry"'")' > "$DEST_AUTH_FILE"
-          fi
+          
+          # For other registries, the auth key will be modified to the full repository path, so that
+          # we can create a combined auth file with source and destination entries for `cosign copy` later
+          select-oci-auth "$4" | jq -c \
+            '.auths."'"$4"'" = .auths."'"$registry"'" | del(.auths."'"$registry"'")' > "$DEST_AUTH_FILE"
 
           oras_args=()
           if [ -n "$6" ]; then
@@ -72,25 +69,31 @@ spec:
           destination_digest=$(oras resolve --registry-config "$DEST_AUTH_FILE" "${oras_args[@]}" "$4:$5" || true)
 
           if [[ "$destination_digest" != "$1" || -z "$destination_digest" ]]; then
-            printf '* Pushing component: %s to %s:%s\n' "$2" "$4" "$5"
+          
+          printf '* Pushing component: %s to %s:%s\n' "$2" "$4" "$5"
             # Create a combined auth file to enable partial oci matches to work
             DOCKER_CONFIG="$(mktemp -d)"
             export DOCKER_CONFIG
+          
             # shellcheck disable=SC2128
             jq -s 'reduce .[] as $item ({}; . * $item)' \
               "$SOURCE_AUTH_FILE" "$DEST_AUTH_FILE" > "$DOCKER_CONFIG"/config.json
             attempt=0
+          
             until [ "$attempt" -gt "$(params.retries)" ] ; do # 0 retries by default which will execute this once
               cosign copy -f "$3" "$4:$5" && break
               attempt=$((attempt+1))
             done
+          
             if [ "$attempt" -gt "$(params.retries)" ] ; then
               echo "Max retries exceeded."
               exit 1
             fi
+          
             # Only the cosign call above needs this custom Docker config. Unset it, so that skopeo call
             # in get-image-architecture uses the default config in ~/.docker/config.json (this one would break it)
             unset DOCKER_CONFIG
+          
           else
             printf '* Component push skipped (source digest exists at destination): %s (%s)\n' \
               "$2" "$3"
@@ -140,9 +143,12 @@ spec:
 
         application=$(jq -r '.application' "${SNAPSHOT_SPEC_FILE}")
         NUM_COMPONENTS=$(jq '.components | length' "${SNAPSHOT_SPEC_FILE}")
+        
         printf 'Beginning "%s" for "%s"\n\n' "$(context.task.name)" "$application"
+        
         for ((i = 0; i < NUM_COMPONENTS; i++))
         do
+        
           component=$(jq -c --argjson i "$i" '.components[$i]' "${SNAPSHOT_SPEC_FILE}")
           containerImage=$(jq -r '.containerImage' <<< "$component")
           repository=$(jq -r '.repository' <<< "$component")
@@ -150,7 +156,9 @@ spec:
 
           # oras has very limited support for selecting the right auth entry,
           # so create a custom auth file with just one entry.
+          
           registry=$(echo "${containerImage}" | cut -d '/' -f 1)
+          
           # Apply-mapping ensures that the containerImage contains a sha256 digest
           source_repo=${containerImage%%@sha256:*}
           select-oci-auth "${containerImage}" | jq -c \
