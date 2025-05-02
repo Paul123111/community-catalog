@@ -11,55 +11,55 @@ metadata:
 spec:
   description: |
     Run the push-snapshot task with pushSourceContainer enabled via the defaults
-  # workspaces:
-  #   - name: tests-workspace
-  # tasks:
-  #   - name: setup
-  #     workspaces:
-  #       - name: data
-  #         workspace: tests-workspace
-  #     taskSpec:
-  #       workspaces:
-  #         - name: data
-  #       steps:
-  #         - name: setup-values
-  #           image: quay.io/konflux-ci/release-service-utils:066a63d25546239e79533b99c83ff521a045c819
-  #           script: |
-  #             #!/usr/bin/env sh
-  #             set -eux
+  workspaces:
+    - name: tests-workspace
+  tasks:
+    - name: setup
+      workspaces:
+        - name: data
+          workspace: tests-workspace
+      taskSpec:
+        workspaces:
+          - name: data
+        steps:
+          - name: setup-values
+            image: quay.io/konflux-ci/release-service-utils:066a63d25546239e79533b99c83ff521a045c819
+            script: |
+              #!/usr/bin/env sh
+              set -eux
 
-  #             mkdir "$(workspaces.data.path)/results"
-  #             cat > "$(workspaces.data.path)"/snapshot.json << EOF
-  #             {
-  #               "application": "myapp",
-  #               "components": [
-  #                 {
-  #                   "name": "comp",
-  #                   "containerImage": "registry.io/image@sha256:abcdefg",
-  #                   "repository": "prod-registry.io/prod-location",
-  #                   "source": {
-  #                     "git": {
-  #                       "revision": "a51005b614c359b17a24317fdb264d76b2706a5a",
-  #                       "url": "https://github.com/abc/python-basic"
-  #                     }
-  #                   },
-  #                   "tags": [
-  #                     "testtag"
-  #                   ]
-  #                 }
-  #               ]
-  #             }
-  #             EOF
+              mkdir "$(workspaces.data.path)/results"
+              cat > "$(workspaces.data.path)"/snapshot.json << EOF
+              {
+                "application": "myapp",
+                "components": [
+                  {
+                    "name": "comp",
+                    "containerImage": "registry.io/image@sha256:abcdefg",
+                    "repository": "prod-registry.io/prod-location",
+                    "source": {
+                      "git": {
+                        "revision": "a51005b614c359b17a24317fdb264d76b2706a5a",
+                        "url": "https://github.com/abc/python-basic"
+                      }
+                    },
+                    "tags": [
+                      "testtag"
+                    ]
+                  }
+                ]
+              }
+              EOF
 
-  #             cat > "$(workspaces.data.path)"/data.json << EOF
-  #             {
-  #               "mapping": {
-  #                 "defaults": {
-  #                   "pushSourceContainer": true
-  #                 }
-  #               }
-  #             }
-  #             EOF
+              cat > "$(workspaces.data.path)"/data.json << EOF
+              {
+                "mapping": {
+                  "defaults": {
+                    "pushSourceContainer": true
+                  }
+                }
+              }
+              EOF
   #   - name: run-task
   #     taskRef:
   #       - name: url
