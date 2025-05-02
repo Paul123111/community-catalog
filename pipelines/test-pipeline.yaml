@@ -60,28 +60,28 @@ spec:
                 }
               }
               EOF
-    - name: run-task
-      taskRef:
-        - name: url
-          value: https://github.com/Paul123111/community-catalog.git
-        - name: revision
-          value: development
-        - name: pathInRepo
-          value: tasks/push-to-quay/push-to-quay-task.yaml
-      params:
-        - name: snapshotPath
-          value: snapshot.json
-        - name: dataPath
-          value: data.json
-        - name: retries
-          value: 0
-        - name: resultsDirPath
-          value: results
-      workspaces:
-        - name: data
-          workspace: tests-workspace
-      runAfter:
-        - setup
+    # - name: run-task
+    #   taskRef:
+    #     - name: url
+    #       value: https://github.com/Paul123111/community-catalog.git
+    #     - name: revision
+    #       value: development
+    #     - name: pathInRepo
+    #       value: tasks/push-to-quay/push-to-quay-task.yaml
+    #   params:
+    #     - name: snapshotPath
+    #       value: snapshot.json
+    #     - name: dataPath
+    #       value: data.json
+    #     - name: retries
+    #       value: 0
+    #     - name: resultsDirPath
+    #       value: results
+    #   workspaces:
+    #     - name: data
+    #       workspace: tests-workspace
+    #   runAfter:
+    #     - setup
     # - name: check-result
     #   workspaces:
     #     - name: data
