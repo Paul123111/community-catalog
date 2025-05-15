@@ -17,10 +17,6 @@ spec:
       type: string
     - name: release
       type: string
-    - name: taskGitUrl
-      type: string
-    - name: taskGitRevision
-      type: string
   workspaces:
     - name: release-workspace
   tasks:
@@ -33,13 +29,13 @@ spec:
           - name: revision
             value: $(params.taskGitRevision)
           - name: pathInRepo
-            value: tasks/notify-failure-on-slack/notify-failure-on-slack.yaml
+            value: tasks/notify-slack-on-failure/notify-slack-on-failure.yaml
       params:
         - name: secretName
           value: $(params.secretName)
         - name: secretKeyName
           value: $(params.secretKeyName)
-        - name: RELEASE
+        - name: release
           value: $(params.release)
       workspaces:
         - name: data

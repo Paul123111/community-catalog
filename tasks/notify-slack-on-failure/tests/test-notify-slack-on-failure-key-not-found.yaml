@@ -7,7 +7,8 @@ metadata:
     test/assert-task-failure: "run-task"
 spec:
   description: |
-    Run the notify-slack-on-failure task and verify the results
+    Run the notify-slack-on-failure task and verify that the task exits 
+    with an error when wrong secretKeyName is provided
   workspaces:
     - name: tests-workspace
   tasks:
