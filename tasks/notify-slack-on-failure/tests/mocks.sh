@@ -7,13 +7,13 @@ function curl() {
   echo Mock curl called with: $*
   echo $* >> $(workspaces.data.path)/mock_curl.txt
 
-  if [[ "$*" != "-H Content-type: application/json --data-binary @/tmp/release.json ABCDEF"* ]]
+  if [[ "$*" != "-H Content-type: application/json --data-binary @/tmp/payload.json ABCDEF"* ]]
   then
     echo Error: Unexpected call
     exit 1
   fi
 
-  cat /tmp/release.json > $(workspaces.data.path)/mock_message.txt
+  cat /tmp/payload.json > $(workspaces.data.path)/mock_message.txt
 
 }
 

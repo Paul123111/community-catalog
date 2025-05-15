@@ -1,6 +1,6 @@
 # notify-slack-on-failure-sample pipeline
 
-Sample Tekton pipeline that runs the "notify-slack-on-failure" task.
+Sends an error message to Slack using postMessage API if managed pipelines fail.
 
 ## Parameters
 
@@ -8,4 +8,4 @@ Sample Tekton pipeline that runs the "notify-slack-on-failure" task.
 |-------------------------------------|----------------------------------------------------------------------------------------------------------------------------|------------|-----------------------------------------------------------|
 | secretName                          | Name of secret which contains authentication token for app                                                                 | No         | -                                                         |
 | secretKeyName                       | Name of key within secret which contains webhook URL                                                                       | No         | -                                                         |
-| RELEASE                             | String representation of Release spec                                                                                      | No         | -                                                         |
+| release                             | String representation of release spec                                                                                      | No         | -                                                         |

@@ -19,7 +19,7 @@ spec:
           value: "my-secret"
         - name: secretKeyName
           value: "missing-key"
-        - name: RELEASE
+        - name: release
           value: "success"
       workspaces:
         - name: data
