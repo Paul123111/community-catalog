@@ -18,7 +18,7 @@ spec:
         - name: secretKeyName
           value: "my-team"
         - name: release
-          value: "fail"
+          value: "ns/fail"
       workspaces:
         - name: data
           workspace: tests-workspace

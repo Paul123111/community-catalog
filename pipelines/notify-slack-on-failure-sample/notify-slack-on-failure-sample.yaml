@@ -13,10 +13,20 @@ spec:
   params:
     - name: secretName
       type: string
+      description: Name of secret which contains authentication token for app
     - name: secretKeyName
       type: string
+      description: Name of key within secret which contains webhook URL
     - name: release
       type: string
+      description: String representation of release spec
+    - name: taskGitUrl
+      type: string
+      description: The url to the git repo where the community-catalog tasks to be used are stored
+      default: https://github.com/konflux-ci/community-catalog.git
+    - name: taskGitRevision
+      type: string
+      description: The revision in the taskGitUrl repo to be used
   workspaces:
     - name: release-workspace
   tasks:

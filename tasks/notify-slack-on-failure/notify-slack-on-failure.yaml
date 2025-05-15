@@ -33,7 +33,8 @@ spec:
         set -eux
 
         if [ -z "${KEYNAME}" ] ; then
-          echo "No secret key name provided via the 'secretKeyName' parameter in the release-plan"
+          echo "No secret key name provided via the 'secretKeyName' pipeline parameter" \
+            "provided in the release-plan"
           echo "No message will be sent to Slack"
           exit
         fi
@@ -41,17 +42,20 @@ spec:
         if [ -f "/etc/secrets/${KEYNAME}" ]; then
           WEBHOOK_URL=$(cat "/etc/secrets/${KEYNAME}")
         else
-          echo "Error: Secret not defined properly. The key to use (${KEYNAME}) is defined in the 'secretKeyName' \
-              parameter in the release-plan but the Secret does not contain the key"
+          echo "Error: Secret not defined properly. The key to use (${KEYNAME}) is defined in the 'secretKeyName'" \
+            "pipeline parameter provided in the release-plan but the Secret does not contain the key"
           exit 1
         fi
 
         # check for release status and check if a managed pipeline failed
-        RELEASECONDITIONS=$(get-resource "release" "$(params.release)" | jq .status)
-        RELEASESTATUS=$( echo -n $RELEASECONDITIONS | jq .conditions[].reason )
+        IFS='/' read -r RELEASE_NAMESPACE RELEASE_NAME <<< "$(params.release)"
+        RELEASECONDITIONS=$(kubectl get release "$RELEASE_NAME" -n "$RELEASE_NAMESPACE" \
+          -o jsonpath='{.status}')
+        
+        RELEASESTATUS=$( echo -n "$RELEASECONDITIONS" | jq .conditions[].reason )
 
         if [[ "$RELEASESTATUS" == *"Failed"* ]]; then
-          MESSAGE=$( echo -n $RELEASECONDITIONS | jq -r .conditions[].message | awk NF)
+          MESSAGE=$( echo -n "$RELEASECONDITIONS" | jq -r .conditions[].message | awk NF)
           
           # need 3 back-ticks around message for code-block
           MESSAGE=$(echo -n "Managed pipelines failed: \`\`\`$MESSAGE\`\`\`" | jq -Rsa)

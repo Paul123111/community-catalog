@@ -21,7 +21,7 @@ spec:
         - name: secretKeyName
           value: "missing-key"
         - name: release
-          value: "success"
+          value: "ns/success"
       workspaces:
         - name: data
           workspace: tests-workspace

@@ -17,15 +17,15 @@ function curl() {
 
 }
 
-function get-resource() {
-  #echo Mock get-resources called with: $*
+function kubectl() {
+  #echo Mock kubectl called with: $*
   echo $* >> $(workspaces.data.path)/mock_resources.txt
 
   if [[ "$*" == *"release"* ]]
   then
     if [[ "$*" == *fail* ]]
     then
-      cat <<EOF
+      cat > /tmp/mock-release.json <<EOF
       {
       "apiVersion": "appstudio.redhat.com/v1alpha1",
       "kind": "Release",
@@ -77,7 +77,7 @@ EOF
 
     elif [[ "$*" == *success* ]]
     then
-      cat <<EOF
+      cat > /tmp/mock-release.json <<EOF
       {
       "apiVersion": "appstudio.redhat.com/v1alpha1",
       "kind": "Release",
@@ -121,6 +121,12 @@ EOF
       }
 EOF
     fi
+  fi
+
+  if [[ "$*" == *"-o jsonpath={.status}"* ]]; then
+    cat /tmp/mock-release.json | jq .status
+  else
+    cat /tmp/mock-release.json
   fi
 
 }
