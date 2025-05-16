@@ -50,12 +50,12 @@ spec:
         # check for release status and check if a managed pipeline failed
         IFS='/' read -r RELEASE_NAMESPACE RELEASE_NAME <<< "$(params.release)"
         RELEASECONDITIONS=$(kubectl get release "$RELEASE_NAME" -n "$RELEASE_NAMESPACE" \
-          -o jsonpath='{.status}')
+          -o jsonpath='{.status.conditions}' | jq '.[] | select(.type == "ManagedPipelineProcessed")')
         
-        RELEASESTATUS=$( echo -n "$RELEASECONDITIONS" | jq .conditions[].reason )
+        RELEASESTATUS=$( echo -n "$RELEASECONDITIONS" | jq .reason )
 
         if [[ "$RELEASESTATUS" == *"Failed"* ]]; then
-          MESSAGE=$( echo -n "$RELEASECONDITIONS" | jq -r .conditions[].message | awk NF)
+          MESSAGE=$( echo -n "$RELEASECONDITIONS" | jq -r .message | awk NF)
           
           # need 3 back-ticks around message for code-block
           MESSAGE=$(echo -n "Managed pipelines failed: \`\`\`$MESSAGE\`\`\`" | jq -Rsa)

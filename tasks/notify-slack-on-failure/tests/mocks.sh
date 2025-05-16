@@ -19,7 +19,7 @@ function curl() {
 
 function kubectl() {
   #echo Mock kubectl called with: $*
-  echo $* >> $(workspaces.data.path)/mock_resources.txt
+  echo $* >> /tmp/mock_resources.txt
 
   if [[ "$*" == *"release"* ]]
   then
@@ -108,7 +108,19 @@ EOF
               "message": "",
               "reason": "Succeeded",
               "status": "True",
+              "type": "ManagedPipelineProcessed"
+          },
+          {
+              "message": "",
+              "reason": "Succeeded",
+              "status": "True",
               "type": "TenantPipelineProcessed"
+          },
+          {
+              "message": "",
+              "reason": "Succeeded",
+              "status": "True",
+              "type": "ManagedPipelineProcessed"
           },
           {
               "message": "",
@@ -123,8 +135,8 @@ EOF
     fi
   fi
 
-  if [[ "$*" == *"-o jsonpath={.status}"* ]]; then
-    cat /tmp/mock-release.json | jq .status
+  if [[ "$*" == *"-o jsonpath={.status.conditions}"* ]]; then
+    cat /tmp/mock-release.json | jq .status.conditions
   else
     cat /tmp/mock-release.json
   fi
