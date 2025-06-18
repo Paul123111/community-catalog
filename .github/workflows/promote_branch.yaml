@@ -1,0 +1,36 @@
+---
+name: Promote branch
+on:
+  schedule:
+    # UTC time
+    - cron: "15 14 * * 3"
+permissions:
+  contents: write
+  actions: write
+jobs:
+  promote-staging-to-production:
+    name: Promote Branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Promote Branch - Staging-to-Production
+        run: |
+          .github/scripts/promote_branch.sh --promotion-type $PROMOTION_TYPE --force-to-staging $FORCE \
+            --override $OVERRIDE --dry-run $DRY
+        env:
+          PROMOTION_TYPE: staging-to-production
+          FORCE: true
+          OVERRIDE: true
+          DRY: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Promote Branch - Development-to-Staging
+        run: |
+          .github/scripts/promote_branch.sh --promotion-type $PROMOTION_TYPE --force-to-staging $FORCE \
+            --override $OVERRIDE --dry-run $DRY
+        env:
+          PROMOTION_TYPE: development-to-staging
+          FORCE: true
+          OVERRIDE: true
+          DRY: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
