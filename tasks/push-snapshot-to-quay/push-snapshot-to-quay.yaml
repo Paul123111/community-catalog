@@ -120,14 +120,14 @@ spec:
         for ((i = 0; i < NUM_COMPONENTS; i++)); do
 
           COMPONENT=$(echo -n "$SNAPSHOT_SPEC" | jq -c --argjson i "$i" '.components[$i]')
-          COMPONENT_DESTINATION=$(echo -n "$RP_DATA" | jq -c --argjson i "$i" '.components[$i]')
-          
-          if [[ "$COMPONENT_DESTINATION" == "null" ]]; then
-            echo "No mappings left in release plan for components - Skipping remaining components."
-            break
+          NAME=$(jq -r '.name' <<< "$COMPONENT")
+          COMPONENT_DESTINATION=$(echo -n "$RP_DATA" | jq -c --arg c "$NAME" '.components[] | select(.name == $c)')
+
+          if [[ "$COMPONENT_DESTINATION" == "" ]]; then
+            echo "No mapping for ${NAME}. Skipping."
+            continue
           fi
 
-          NAME=$(jq -r '.name' <<< "$COMPONENT")
           CONTAINER_IMAGE=$(jq -r '.containerImage' <<< "$COMPONENT")
           REPOSITORY=$(jq -r '.repository' <<< "$COMPONENT_DESTINATION")
           IMAGE_TAGS=$(jq -r '.tags' <<< "$COMPONENT_DESTINATION")

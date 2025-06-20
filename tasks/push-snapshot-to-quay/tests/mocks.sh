@@ -103,6 +103,7 @@ EOF
     if [[ "$3" == "multiple" ]]; then
       EXTRA_COMPONENT_DESTINATIONS=',
       {
+        "name": "test-image2",
         "repository": "quay.io/default-repo3",
         "tags": [
           "testtag",
@@ -110,12 +111,14 @@ EOF
         ]
       },
       {
+        "name": "test-image3",
         "repository": "quay.io/default-repo2",
         "tags": [
           "skip-image"
         ]
       },
       {
+        "name": "test-image4",
         "repository": "quay.io/default-repo2",
         "tags": [
           "skip-image",
@@ -138,6 +141,7 @@ EOF
           "mapping": {
             "components": [
               {
+                "name": "test-image",
                 "repository": "$TEST_REPO",
                 "tags": [
                   "testtag"
