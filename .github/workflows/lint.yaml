@@ -75,8 +75,8 @@ jobs:
         uses: tj-actions/changed-files@ed68ef82c095e0d48ec87eccea555d944a631a4c  # v45.0.6
         with:
           files: |
-            tasks/*
-            pipelines/*
+            tasks/**
+            pipelines/**
           dir_names: "true"
           dir_names_max_depth: "2"
       - name: Check README.md files
