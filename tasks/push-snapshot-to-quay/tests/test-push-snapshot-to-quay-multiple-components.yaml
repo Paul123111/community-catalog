@@ -19,4 +19,4 @@ spec:
         - name: release
           value: "ns/multiple-release"
         - name: requireSuccessfulManagedRelease
-          value: "false"
+          value: "false1"
