@@ -105,7 +105,7 @@ dashes() { # (num_spaces, string)
 # Add table
 for ITEM in "${README_ITEMS[@]}"
 do
-  ITEM_DIR=$(cut -d '/' -f -3 <<< "$ITEM")
+  ITEM_DIR=$(cut -d '/' -f -2 <<< "$ITEM")
   BASE_DIR=$(cut -d '/' -f 1 <<< "$ITEM")
   ITEM_NAME=$(basename "$ITEM")
   ITEM_PATH=${ITEM_DIR}/${ITEM_NAME}.yaml

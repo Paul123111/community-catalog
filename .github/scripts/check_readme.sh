@@ -72,7 +72,7 @@ for ITEM in "${README_ITEMS[@]}"
 do
   echo "Task/Pipeline item: $ITEM"
   ITEM_NAME=$(basename "$ITEM")
-  ITEM_DIR=$(cut -d '/' -f -3 <<< "$ITEM")
+  ITEM_DIR=$(cut -d '/' -f -2 <<< "$ITEM")
   echo "  Task/Pipeline name: $ITEM_NAME"
 
   ITEM_PATH=${ITEM_DIR}/${ITEM_NAME}.yaml

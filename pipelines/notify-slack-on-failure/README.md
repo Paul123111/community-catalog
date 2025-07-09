@@ -2,7 +2,6 @@
 
 Sends an error message to Slack using postMessage API if managed pipelines fail. test change here
 
-
 ## Parameters
 
 | Name            | Description                                                                     | Optional | Default value                                       |
