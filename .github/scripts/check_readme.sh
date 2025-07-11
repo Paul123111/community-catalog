@@ -11,6 +11,7 @@
 CLI_README_ITEMS=()
 FAILED_ITEMS=()
 FAILED_PARAMS=()
+echo production
 
 show_help() {
   echo "Usage: $0 [item1] [item2] [...]"
