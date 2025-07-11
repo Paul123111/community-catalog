@@ -8,7 +8,7 @@ metadata:
 spec:
   description: |
     Run the push-snapshot-to-quay task and check that the task 
-    fails when there are no components present in the snapshot
+    fails when there are no components present in the snapshotchange
   tasks:
     - name: run-task
       taskRef:

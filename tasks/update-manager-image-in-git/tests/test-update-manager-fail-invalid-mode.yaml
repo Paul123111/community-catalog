@@ -7,7 +7,7 @@ metadata:
     test/assert-task-failure: "run-task"
 spec:
   description: |
-    Run the update-manager-image-in-git with an invalid `mode` param and ensure the task fails.
+    Run the update-manager-image-in-git with an invalid `mode` param and ensure the task fails.change
   tasks:
     - name: run-task
       taskRef:
