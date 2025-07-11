@@ -1,3 +1,4 @@
+---
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
@@ -30,9 +31,9 @@ spec:
         set -euo pipefail
         
         # Sanitize inputs to remove any potential leading/trailing whitespace, including newlines.
-        CLEAN_URL=$(echo "$(params.url)" | xargs)
-        CLEAN_REVISION=$(echo "$(params.revision)" | xargs)
-        CLEAN_PATH=$(echo "$(params.pathInRepo)" | xargs)
+        CLEAN_URL=$(xargs <<< "$(params.url)")
+        CLEAN_REVISION=$(xargs <<< "$(params.revision)")
+        CLEAN_PATH=$(xargs <<< "$(params.pathInRepo)")
 
         file_url="${CLEAN_URL}/raw/${CLEAN_REVISION}/${CLEAN_PATH}"
         echo "Attempting to fetch file from URL: ${file_url}"
@@ -44,7 +45,8 @@ spec:
           echo "Source repository is private, using token from secret '$(params.REPO_TOKEN)'."
           TOKEN=$(kubectl get secret "$(params.REPO_TOKEN)" -o jsonpath="{.data.$(params.REPO_KEY)}" | base64 -d)
           if [[ -z "$TOKEN" ]]; then
-            echo "ERROR: Failed to retrieve or decode token from secret '$(params.REPO_TOKEN)' with key '$(params.REPO_KEY)'."
+            echo "ERROR: Failed to retrieve or decode token from secret \
+            '$(params.REPO_TOKEN)' with key '$(params.REPO_KEY)'."
             exit 1
           fi
           
