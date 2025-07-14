@@ -7,7 +7,7 @@ spec:
   description: |-
     Sends an error message to Slack using postMessage API if managed pipelines fail
   params:
-    - name: secretName
+    - name: secretNamechange
       description: Name of secret which contains authentication token for app
     - name: secretKeyName
       description: Name of key within secret which contains webhook URL

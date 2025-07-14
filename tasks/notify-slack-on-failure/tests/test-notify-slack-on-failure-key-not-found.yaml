@@ -19,4 +19,4 @@ spec:
         - name: secretKeyName
           value: "missing-key"
         - name: release
-          value: "ns/success"
+          value: "ns/successchange"
