@@ -7,6 +7,8 @@ each image is taken from the '.spec.data.mapping' section of the release plan, i
 If `requireSuccessfulManagedRelease` is "true", the snapshot will only be pushed if it
 contains a status indicating that a managed pipeline has successfully completed.
 
+test change
+
 ## Parameters
 
 | Name        | Description                                                            | Optional | Default Value |
