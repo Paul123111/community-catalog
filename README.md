@@ -14,6 +14,7 @@ different branch, ask one of the task/pipeline owners, or submit a fix yourself 
 Here's a brief overview of what you can find in the different directories of this catalog:
 
 `pipelines`: This directory contains tenant and final pipelines that can be used in a release plan.
+
 `tasks`: The tasks directory holds Tekton Tasks that can be used in tenant or final pipelines.
 
 ## Linting of yaml files
